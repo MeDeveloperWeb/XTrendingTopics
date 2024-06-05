@@ -43,5 +43,5 @@ def index(request):
 		"currentTopics": currentTopics,
 		"jsonData": jsonData,
 		"error": error,
-		"exception": e
+		"exception": exception
 	})
