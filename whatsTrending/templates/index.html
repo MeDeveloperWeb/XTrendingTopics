@@ -18,7 +18,9 @@
 
 		{% if error %}
 		<div>
-			<p>Something Went Wrong while fetching data. Please try again.</p>
+			<p>Error: {{exception}}</p>
+			<p>Please try again.</p>
+			<p>Time out error signifies that the proxy limit has been exhausted.</p>
 		</div>
 		{% else %}
 		<div>

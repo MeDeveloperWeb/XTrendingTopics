@@ -8,6 +8,7 @@ def index(request):
 	ip = {}
 	currentTopics = []
 	error = False
+	exception = ''
 
 	try:
 		data = getTrendingData()
@@ -21,6 +22,7 @@ def index(request):
 
 	except Exception as e:
 		error = True
+		exception = e
 		print(e)
 
 	jsonData = []
@@ -40,5 +42,6 @@ def index(request):
 		"ip": ip.ip,
 		"currentTopics": currentTopics,
 		"jsonData": jsonData,
-		"error": error
+		"error": error,
+		"exception": e
 	})
