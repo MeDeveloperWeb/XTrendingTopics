@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Trending Topic</title>
+	</head>
+	<body>
+		<a
+			href="."
+			onclick="document.querySelector('#disclaimer').style.display = 'block'"
+			>Click here to run the script</a
+		>
+		<p id="disclaimer" style="display: none">
+			Please be patient while we are fetching data as it might take some
+			long
+		</p>
+
+		{% if error %}
+		<div>
+			<p>Something Went Wrong while fetching data. Please try again.</p>
+		</div>
+		{% else %}
+		<div>
+			<p>These are the most happening topics as on {{dateTime}}</p>
+			<ul>
+				{% for topic in currentTopics %}
+				<li>{{topic}}</li>
+				{% endfor %}
+			</ul>
+			<p>The IP address used for this query was {{ip}}</p>
+		</div>
+		{% endif %}
+		<div>
+			<p>
+				Here is the JSON extract of all available records fetched from X
+			</p>
+			<pre>{{ jsonData | pprint }}</pre>
+		</div>
+	</body>
+</html>
