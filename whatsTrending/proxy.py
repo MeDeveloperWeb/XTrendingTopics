@@ -78,7 +78,7 @@ def proxy_chrome(PROXY_HOST,PROXY_PORT,PROXY_USER,PROXY_PASS):
     co.add_experimental_option("excludeSwitches",["ignore-certificate-errors"])
 
     co.add_argument("--start-maximized")
-    #co.add_argument("--headless=new")
+    co.add_argument("--headless=new")
     co.add_argument("--disable-notifications")
     co.add_argument('--no-sandbox')
     co.add_argument('--disable-dev-shm-usage')
