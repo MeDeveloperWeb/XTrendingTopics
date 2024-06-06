@@ -28,7 +28,7 @@ RUN apt-get install -yqq unzip
 RUN wget -O /tmp/chromedriver.zip https://storage.googleapis.com/chrome-for-testing-public/125.0.6422.141/linux64/chromedriver-linux64.zip
 RUN unzip /tmp/chromedriver.zip chromedriver-linux64/chromedriver -d /usr/local/bin/
 
-RUN sudo apt update && sudo apt install -y python3-pip xvfb && sudo apt upgrade -y
+RUN apt-get update && apt-get install -y xvfb && apt-get upgrade -y
 
 # required for headfull Chrome
 ENV DISPLAY=:0
