@@ -7,21 +7,10 @@ import zipfile
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 
-def proxy_chrome(PROXY_HOST,PROXY_PORT,PROXY_USER,PROXY_PASS):
-    options = webdriver.ChromeOptions()
-
-    options.add_argument("--disable-gpu")
-    options.add_argument("--disable-extensions")
-    options.add_argument("--disable-infobars")
-    options.add_argument("--start-maximized")
-    options.add_argument("--disable-notifications")
-    options.add_argument('--headless')
-    options.add_argument('--no-sandbox')
-    options.add_argument('--disable-dev-shm-usage')
-    options.add_argument("--window-size=1920,1080")
-    # options.add_argument('--proxy-server=http://%s:%s' % (PROXY_HOST, PROXY_PORT))
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options = options)
-    return driver
+def proxyHeadFullChrome(PROXY_HOST,PROXY_PORT,PROXY_USER,PROXY_PASS):
+    """
+        Works for head full chrome but while hosting I am using headless chrome
+    """
     manifest_json = """
             {
                 "version": "1.0.0",
@@ -92,7 +81,7 @@ def proxy_chrome(PROXY_HOST,PROXY_PORT,PROXY_USER,PROXY_PASS):
     co.add_experimental_option("excludeSwitches",["ignore-certificate-errors"])
 
     co.add_argument("--start-maximized")
-    co.add_argument("--headless=new")
+    # co.add_argument("--headless")
     co.add_argument("--disable-notifications")
     co.add_argument('--no-sandbox')
     co.add_argument('--disable-dev-shm-usage')
@@ -100,4 +89,27 @@ def proxy_chrome(PROXY_HOST,PROXY_PORT,PROXY_USER,PROXY_PASS):
     co.add_extension(pluginfile)
     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=co)
     #return the driver with added proxy configuration.
+    return driver
+
+
+def proxyChrome(PROXY_HOST, PROXY_PORT):
+
+    """
+    Works only after allowing the host ip in proxy mesh
+    """
+
+    options = webdriver.ChromeOptions()
+
+    options.add_argument("--disable-gpu")
+    options.add_argument("--disable-extensions")
+    options.add_argument("--disable-infobars")
+    options.add_argument("--start-maximized")
+    options.add_argument("--disable-notifications")
+    options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument("--window-size=1920,1080")
+    options.add_argument('--proxy-server=http://%s:%s' % (PROXY_HOST, PROXY_PORT))
+
+    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options = options)
     return driver

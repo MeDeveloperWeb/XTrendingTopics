@@ -1,12 +1,12 @@
 from selenium.webdriver.common.by import By
-from whatsTrending.proxy import proxy_chrome
+from whatsTrending.proxy import proxyChrome
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.expected_conditions import presence_of_element_located, url_contains, presence_of_all_elements_located
 from .models import Auth
 import os
 
 def getDriver():
-	return proxy_chrome(os.environ.get("PROXY_HOST"), int(os.environ.get("PROXY_PORT")), os.environ.get("PROXY_USER"), os.environ.get("PROXY_PASS"))
+	return proxyChrome(os.environ.get("PROXY_HOST"), int(os.environ.get("PROXY_PORT")))
 
 def getReAuthenticatedDriver():
 	driver = getDriver()
