@@ -8,6 +8,20 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 
 def proxy_chrome(PROXY_HOST,PROXY_PORT,PROXY_USER,PROXY_PASS):
+    options = webdriver.ChromeOptions()
+
+    options.add_argument("--disable-gpu")
+    options.add_argument("--disable-extensions")
+    options.add_argument("--disable-infobars")
+    options.add_argument("--start-maximized")
+    options.add_argument("--disable-notifications")
+    options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument("--window-size=1920,1080")
+    # options.add_argument('--proxy-server=http://%s:%s' % (PROXY_HOST, PROXY_PORT))
+    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options = options)
+    return driver
     manifest_json = """
             {
                 "version": "1.0.0",
