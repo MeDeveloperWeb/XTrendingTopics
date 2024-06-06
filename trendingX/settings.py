@@ -86,7 +86,7 @@ DATABASES = {
             'NAME': 'trendingCollection',
             'ENFORCE_SCHEMA': False,
             'CLIENT': {
-                'host': 'mongodb+srv://adminUser:SaTYsisQoR4J9ICv@cluster0.uj0uuh9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+                'host': os.environ["DB_STRING"]
             }  
         }
 }
