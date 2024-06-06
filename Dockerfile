@@ -28,8 +28,10 @@ RUN apt-get install -yqq unzip
 RUN wget -O /tmp/chromedriver.zip https://storage.googleapis.com/chrome-for-testing-public/125.0.6422.141/linux64/chromedriver-linux64.zip
 RUN unzip /tmp/chromedriver.zip chromedriver-linux64/chromedriver -d /usr/local/bin/
 
-# Set display port as an environment variable
-ENV DISPLAY=:99
+RUN sudo apt update && sudo apt install -y python3-pip xvfb && sudo apt upgrade -y
+
+# required for headfull Chrome
+ENV DISPLAY=:0
 
 WORKDIR /usr/src
 
@@ -45,4 +47,7 @@ EXPOSE 8000
 
 USER 10014
 
-CMD [ "python3", "manage.py", "runserver", "0.0.0.0:8000" ]
+# now, replace `python3 main.py` with the command invocation that will employ headfull Chrome
+CMD xvfb-run --server-args="-screen 0 1900x1200x24" python3 manage.py runserver 0.0.0.0:8000
+
+#CMD [ "python3", "manage.py", "runserver", "0.0.0.0:8000" ]

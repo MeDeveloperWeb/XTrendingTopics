@@ -71,7 +71,6 @@ def getIP(driver):
 
 def getTrendingData():
 	driver = getAuthenticatedWindow()
-	driver.set_window_size(1200, 895)
 
 	trendingEls = WebDriverWait(driver, 20).until(presence_of_all_elements_located([By.XPATH, '//div[contains(@aria-label, "Trending now")]//div[@tabindex="0"]//div[contains(@style, "color: rgb(231, 233, 234)")]']))	
 
