@@ -28,10 +28,8 @@ RUN apt-get install -yqq unzip
 RUN wget -O /tmp/chromedriver.zip https://storage.googleapis.com/chrome-for-testing-public/125.0.6422.141/linux64/chromedriver-linux64.zip
 RUN unzip /tmp/chromedriver.zip chromedriver-linux64/chromedriver -d /usr/local/bin/
 
-RUN apt-get update && apt-get install -y xvfb && apt-get upgrade -y
 
-# required for headfull Chrome
-ENV DISPLAY=:0
+ENV DISPLAY=:99
 
 WORKDIR /usr/src
 
@@ -47,7 +45,7 @@ EXPOSE 8000
 
 USER 10014
 
-# now, replace `python3 main.py` with the command invocation that will employ headfull Chrome
-CMD xvfb-run --server-args="-screen 0 1900x1200x24" python3 manage.py runserver 0.0.0.0:8000
+# # now, replace `python3 main.py` with the command invocation that will employ headfull Chrome
+# CMD xvfb-run --server-args="-screen 0 1900x1200x24" python3 manage.py runserver 0.0.0.0:8000
 
-#CMD [ "python3", "manage.py", "runserver", "0.0.0.0:8000" ]
+CMD [ "python3", "manage.py", "runserver", "0.0.0.0:8000" ]
