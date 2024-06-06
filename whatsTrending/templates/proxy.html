@@ -1,14 +1,14 @@
 {% extends 'layout.html' %} {% block body %}
 <a
-	href="/proxy"
+	href="../"
 	onclick="document.querySelector('#disclaimer').style.display = 'block'"
-	>Click here to run the script with proxy</a
+	>Click here to run the script without proxy</a
 >
 <br />
 <a
 	href="."
 	onclick="document.querySelector('#disclaimer').style.display = 'block'"
-	>Click here to run the script without proxy</a
+	>Click here to run the script with proxy</a
 >
 <p id="disclaimer" style="display: none">
 	Please be patient while we are fetching data as it might take some long
@@ -18,6 +18,9 @@
 <div>
 	<p>Error: {{exception}}</p>
 	<p>Please try again.</p>
+	<p>
+		The error probably occurred because the proxy usage has been exhausted
+	</p>
 </div>
 {% else %}
 <div>

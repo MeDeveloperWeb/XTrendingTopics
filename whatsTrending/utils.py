@@ -1,15 +1,24 @@
 from selenium.webdriver.common.by import By
-from whatsTrending.proxy import proxyChrome
+from whatsTrending.proxy import proxyChrome, chrome
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.expected_conditions import presence_of_element_located, url_contains, presence_of_all_elements_located
 from .models import Auth
 import os
 
-def getDriver():
+def getProxyDriver():
 	return proxyChrome(os.environ.get("PROXY_HOST"), int(os.environ.get("PROXY_PORT")))
 
-def getReAuthenticatedDriver():
-	driver = getDriver()
+def getDriver():
+	return chrome()
+
+def getReAuthenticatedDriver(useProxy):
+	driver = {}
+
+	if useProxy:
+		driver = getProxyDriver()
+	else:
+		driver = getDriver()
+
 	driver.get("http://x.com/login")
 
 	# Get Username Input
@@ -36,17 +45,22 @@ def updateAuthCookie(newCookie, cookieObj):
 	cookieObj.cookie = newCookie
 	cookieObj.save()
 
-def getAuthenticatedWindow():
+def getAuthenticatedWindow(useProxy):
 	cookies = Auth.objects.all()
 
 	if cookies.count() == 0:
-		driver = getReAuthenticatedDriver()
+		driver = getReAuthenticatedDriver(useProxy)
 		createAuthCookie(cookie=driver.get_cookie('auth_token'))
 		return driver
 	
 	cookie = cookies[0].cookie
+
+	driver = {}
 	
-	driver = getDriver()
+	if useProxy:
+		driver = getProxyDriver()
+	else:
+		driver = getDriver()
 
 	driver.get("http://x.com")
 
@@ -69,8 +83,8 @@ def getIP(driver):
 	return driver.find_element(By.TAG_NAME, 'body').text
 
 
-def getTrendingData():
-	driver = getAuthenticatedWindow()
+def getTrendingData(useProxy):
+	driver = getAuthenticatedWindow(useProxy)
 
 	trendingEls = WebDriverWait(driver, 20).until(presence_of_all_elements_located([By.XPATH, '//div[contains(@aria-label, "Trending now")]//div[@tabindex="0"]//div[contains(@style, "color: rgb(231, 233, 234)")]']))	
 

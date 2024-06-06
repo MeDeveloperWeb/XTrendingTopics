@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Trending Topic</title>
+	</head>
+	<body>
+		<div>{% block body %} {% endblock %}</div>
+		<div>
+			<p>
+				Here is the JSON extract of all available records fetched from X
+			</p>
+			<pre>{{ jsonData | pprint }}</pre>
+		</div>
+	</body>
+</html>
